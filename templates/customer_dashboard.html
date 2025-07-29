@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Customer Dashboard | Artify</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <style>
+    body {
+      background-color: #f9f9f9;
+      font-family: Arial, sans-serif;
+    }
+
+    .header {
+      background-color: #623d30;
+      color: white;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 20px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      color: #623d30;
+      margin-bottom: 20px;
+    }
+
+    .product-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .product-card {
+      background-color: #fff6f0;
+      padding: 15px;
+      border-radius: 8px;
+      width: 240px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .product-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 5px;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 8px 12px;
+      background-color: #623d30;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+
+    .btn:hover {
+      background-color: #47291f;
+    }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Welcome {{ session.name }}</h1>
+  
+  <div style="display: flex; align-items: center; gap: 20px;">
+    <a href="/cart" style="color: white; text-decoration: none;">
+      🛒 Cart ({{ cart_count }})
+    </a>
+    <a href="/shops" style="color: white; text-decoration: none;">Shops</a>
+    <a href="/learn" style="color: white; text-decoration: none;">Learn</a>
+    <a href="/my_orders" style="color: white; text-decoration: none;"> My Orders</a>
+    <a href="/logout" style="color: white;">Logout</a>
+  </div>
+</div>
+
+  <div class="container">
+    <h2>Explore Handcrafted Products</h2>
+
+    {% if products %}
+      <div class="product-grid">
+        {% for product in products %}
+          <div class="product-card">
+            <img src="{{ url_for('static', filename='images/' ~ product.image) }}" alt="{{ product.name }}">
+            <h3>{{ product.name }}</h3>
+            <p><strong>₹{{ product.price }}</strong></p>
+            <p style="font-size: 14px;">{{ product.description }}</p>
+
+            <!-- Buttons -->
+            <a href="{{ url_for('buy_now', product_id=product.id) }}" class="btn">Buy Now</a>
+            <a href="{{ url_for('add_to_cart', product_id=product['id']) }}" class="btn">Add to Cart</a>
+
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p>No products available yet.</p>
+    {% endif %}
+  </div>
+
+</body>
+</html>

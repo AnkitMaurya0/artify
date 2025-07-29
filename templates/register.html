@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register | Artify</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="auth-body">
+    <div class="auth-container">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Artify Logo">
+        </div>
+
+        <h2>Create Your Artify Account</h2>
+
+        <form action="/register" method="POST" enctype="multipart/form-data" id="registrationForm">
+            <div class="form-group">
+                <label for="role">Register As</label>
+                <select name="role" id="role" required onchange="toggleShopOwnerFields()">
+                    <option value="">Select Role</option>
+                    <option value="buyer">Buyer</option>       
+                    <option value="shop_owner">Shop Owner (Artisan)</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <input type="text" name="name" placeholder="Full Name" required>
+                <input type="email" name="email" placeholder="Email Address" required>
+                <input type="password" name="password" placeholder="Create Password" required>
+            </div>
+
+            <div id="shopFields" style="display: none;" class="form-group">
+                <input type="text" name="mobile" placeholder="Mobile Number">
+                <input type="text" name="bank_account" placeholder="Bank Account Number">
+                <input type="text" name="ifsc" placeholder="IFSC Code">
+                <input type="text" name="pan" placeholder="PAN Card Number">
+                <input type="text" name="shop_name" placeholder="Shop Name">
+                <label style="text-align: left;">Upload Shop Logo</label>
+                <input type="file" name="shop_logo" accept="image/*">
+            </div>
+
+            <button type="submit">Register</button>
+
+            <p class="auth-link">Already have an account? <a href="/login">Login here</a></p>
+        </form>
+    </div>
+
+    <script>
+        function toggleShopOwnerFields() {
+            const role = document.getElementById('role').value;
+            const shopFields = document.getElementById('shopFields');
+            if (role === 'shop_owner') {
+                shopFields.style.display = 'block';
+            } else {
+                shopFields.style.display = 'none';
+            }
+        }
+    </script>
+     {% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <div class="toast-container">
+      {% for message in messages %}
+        <div class="toast">{{ message }}</div>
+      {% endfor %}
+    </div>
+    <script>
+      setTimeout(function() {
+        const toast = document.querySelector('.toast');
+        if (toast) toast.style.display = 'none';
+      }, 3000);  // Hide after 3 seconds
+    </script>
+  {% endif %}
+{% endwith %}
+
+</body>
+</html>

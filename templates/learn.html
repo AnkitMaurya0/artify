@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Learn | Artify</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <header class="learn-header">
+    <h1>📚 Learn with Artify</h1>
+    <p>Explore workshops, blogs, and artisan videos to learn and grow your skills.</p>
+  </header>
+
+  <main class="learn-main">
+
+    <!-- Workshops Section -->
+    <section class="learn-section">
+      <h2>🛠 Upcoming Workshops</h2>
+      {% if workshops %}
+        <div class="grid">
+          {% for w in workshops %}
+            <div class="learn-card">
+              {% if w.image %}
+                <img src="{{ url_for('static', filename='images/' ~ w.image) }}" alt="Workshop Image">
+              {% endif %}
+              <h3>{{ w.title }}</h3>
+              <p class="meta">{{ w.date }} | {{ w.time }} | {{ w.location }}</p>
+              <p>{{ w.description }}</p>
+            </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <p>No workshops available right now.</p>
+      {% endif %}
+    </section>
+
+    <!-- Blogs Section -->
+    <section class="learn-section">
+      <h2>📝 Artisan Blogs</h2>
+      {% if blogs %}
+        <div class="grid">
+          {% for blog in blogs %}
+            <div class="learn-card">
+              {% if blog.image %}
+                <img src="{{ url_for('static', filename='images/' ~ blog.image) }}" alt="Blog Image">
+              {% endif %}
+              <h3>{{ blog.title }}</h3>
+              <p class="meta">By {{ blog.name }} | {{ blog.timestamp }}</p>
+              <p>{{ blog.content }}</p>
+              <a href="/blog/{{ blog.id }}" class="read-more">Read More</a>
+            </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <p>No blog posts yet.</p>
+      {% endif %}
+    </section>
+
+    <!-- Videos Section -->
+    <section class="learn-section">
+      <h2>🎥 Learning Videos</h2>
+      {% if videos %}
+        <div class="grid">
+          {% for video in videos %}
+            <div class="learn-card">
+              <h3>{{ video.title }}</h3>
+              <p>{{ video.description }}</p>
+              {% if video.url %}
+                <div class="video-wrapper">
+                  <iframe src="{{ video.url }}" frameborder="0" allowfullscreen></iframe>
+                </div>
+              {% endif %}
+            </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <p>No videos uploaded yet.</p>
+      {% endif %}
+    </section>
+
+  </main>
+</body>
+</html>

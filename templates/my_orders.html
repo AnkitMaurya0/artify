@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Orders | Artify</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f7f5f2;
+    }
+    .header {
+      background-color: #623d30;
+      color: white;
+      padding: 15px 25px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 40px auto;
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 14px;
+      text-align: center;
+      border-bottom: 1px solid #ccc;
+    }
+    img {
+      width: 80px;
+      border-radius: 5px;
+    }
+    h2 {
+      color: #623d30;
+    }
+    .status {
+      font-weight: bold;
+    }
+    .cancel-btn {
+      background-color: red;
+      color: white;
+      padding: 6px 10px;
+      border: none;
+      border-radius: 5px;
+      text-decoration: none;
+    }
+    .cancel-btn:hover {
+      background-color: darkred;
+    }
+    .flash-messages {
+      color: green;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <h2>📦 My Orders</h2>
+    <a href="/customer/dashboard" style="color: white;">⬅ Back to Dashboard</a>
+  </div>
+
+  <div class="container">
+
+    <!-- ✅ Flash Message Support -->
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <div class="flash-messages">
+          {% for message in messages %}
+            <p>{{ message }}</p>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    {% if orders %}
+      <table>
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Image</th>
+            <th>Price (₹)</th>
+            <th>Status</th>
+            <th>Ordered On</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for order in orders %}
+            <tr>
+              <td>{{ order.product_name }}</td>
+              <td><img src="{{ url_for('static', filename='images/' ~ order.product_image) }}"></td>
+              <td>{{ order.price }}</td>
+              <td class="status">{{ order.status }}</td>
+              <td>{{ order.timestamp }}</td>
+              <td>
+                {% if order.status == 'Pending' or order.status == 'Confirmed' %}
+                  <a href="/cancel_order/{{ order.id }}" class="cancel-btn">Cancel</a>
+                {% else %}
+                  <span style="color: gray;">-</span>
+                {% endif %}
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p>No orders placed yet.</p>
+    {% endif %}
+  </div>
+
+</body>
+</html>

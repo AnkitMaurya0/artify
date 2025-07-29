@@ -1,0 +1,32 @@
+<!-- templates/upload_video.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Upload Video | Artify</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+  <div class="form-container">
+    <h2>🎥 Upload Learning Video</h2>
+
+    <form method="POST">
+      <label>Video Title:</label>
+      <input type="text" name="title" required>
+
+      <label>Description:</label>
+      <textarea name="description" required></textarea>
+
+      <label>YouTube Embed URL:</label>
+      <input type="url" name="url" placeholder="e.g., https://www.youtube.com/embed/xyz" required>
+
+      <label>Hashtags (#tags):</label>
+      <input type="text" name="tags" placeholder="#jewellery #crochet">
+
+      <button type="submit">Upload Video</button>
+    </form>
+  </div>
+
+</body>
+</html>

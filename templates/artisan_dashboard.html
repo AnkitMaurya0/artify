@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Artisan Dashboard | Artify</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<header class="dashboard-header">
+  <div class="header-left">
+    <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Artify Logo" class="logo">
+    <h1>Welcome, {{ artisan_name }}</h1>
+  </div>
+  <nav class="header-right">
+    <div class="menu">
+      <a href="/artisan_dashboard">Dashboard</a>
+      <a href="/learn">Learn</a>
+      <a href="/post_blog">Post Blog</a>
+      <a href="/upload_video">Upload Video</a>
+      <a href="/logout">Logout</a>
+    </div>
+  </nav>
+</header>
+
+<main class="dashboard-container">
+
+  <!-- Shop Info Section -->
+  <section class="card shop-info">
+    <h2>Your Shop Info</h2>
+    <p><strong>Shop Name:</strong> {{ shop_name }}</p>
+    <p><strong>Email:</strong> {{ artisan_email }}</p>
+    <img src="{{ shop_logo_url }}" alt="Shop Logo" class="shop-logo">
+  </section>
+
+  <!-- Add Product -->
+  <section class="card add-product">
+    <h2>Add New Product</h2>
+    <form action="/add_product" method="POST" enctype="multipart/form-data">
+      <input type="text" name="product_name" placeholder="Product Name" required>
+      <input type="number" name="price" placeholder="Price ₹" step="0.01" required>
+      <textarea name="description" placeholder="Product Description" required></textarea>
+      <input type="file" name="product_image" accept="image/*" required>
+      <button type="submit">Add Product</button>
+    </form>
+  </section>
+
+  <!-- Product List Section -->
+  <section class="card product-list">
+    <h2>Your Products</h2>
+    {% if products %}
+      <div class="product-grid">
+        {% for product in products %}
+          <div class="product-card">
+            <img src="{{ url_for('static', filename='images/' ~ product.image) }}" alt="{{ product.name }}">
+            <h4>{{ product.name }}</h4>
+            <p>₹{{ product.price }}</p>
+            <p class="description">{{ product.content }}</p>
+            <a href="{{ url_for('edit_product', product_id=product.id) }}" class="btn">✏️ Edit</a>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p>No products added yet.</p>
+    {% endif %}
+  </section>
+
+  
+
+<!-- Orders Received -->
+<section class="card order-section">
+  <h2>📦 Orders Received</h2>
+  {% if orders %}
+    <table class="orders-table">
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Customer Name</th>
+          <th>Mobile</th>
+          <th>Address</th>
+          <th>Status</th>
+          <th>Txn ID</th>
+          <th>Actions</th>
+        </tr>
+        
+      </thead>
+      <tbody>
+        {% for order in orders %}
+          <tr>
+            <td>{{ order.product_name }}</td>
+            <td>{{ order.customer_name }}</td>
+            <td>{{ order.customer_mobile }}</td>
+            <td>{{ order.customer_address }}</td>
+            <td>{{ order.status }}</td>
+            <td>{{ order.transaction_id or '-' }}</td>
+            
+            <td>
+              {% if order.status not in ['Cancelled', 'Shipped', 'Cancelled by Customer'] %}
+             <a href="/update_order/{{ order.id }}/Confirmed">✔ Confirm</a> |
+             <a href="/update_order/{{ order.id }}/Shipped">🚚 Ship</a> |
+             <a href="/update_order/{{ order.id }}/Cancelled" style="color:red;">❌ Cancel</a>
+             {% else %}
+             <span style="color: gray;">No Action</span>
+             {% endif %}
+
+             {% if order.status == 'Cancelled' or order.status == 'Cancelled by Customer' %}
+             <br><a href="/delete_order/{{ order.id }}" style="color: crimson;" onclick="return confirm('Are you sure to delete this order?');">🗑 Delete</a>
+             {% endif %}
+             </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No orders yet.</p>
+  {% endif %}
+</section>
+
+
+
+  <!-- Income Summary -->
+  <section class="card income-summary">
+    <h2>💰 Total Income Summary</h2>
+    <p><strong>Total Orders:</strong> {{ total_orders }}</p>
+    <p><strong>Total Earnings:</strong> ₹{{ total_income }}</p>
+    <p><strong>Profit (after platform fee):</strong> ₹{{ profit }}</p>
+  </section>
+
+</main>
+</body>
+</html>

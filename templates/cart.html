@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Your Cart | Artify</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <style>
+    body {
+      background-color: #f9f9f9;
+      font-family: Arial, sans-serif;
+    }
+    .header {
+      background-color: #623d30;
+      color: white;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .container {
+      max-width: 900px;
+      margin: 40px auto;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 12px;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+    }
+    .btn {
+      padding: 6px 12px;
+      background-color: #623d30;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      text-decoration: none;
+    }
+    .btn:hover {
+      background-color: #47291f;
+    }
+    .total {
+      text-align: right;
+      font-size: 18px;
+      margin-top: 20px;
+    }
+    .checkout-btn {
+      float: right;
+      background-color: green;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <h2>🛒 Your Cart</h2>
+    <a href="/customer/dashboard" style="color: white;">⬅ Back to Dashboard</a>
+  </div>
+
+  <div class="container">
+
+    {% if products %}
+      <table>
+        <thead>
+          <tr>
+            <th>Image</th>
+            <th>Product</th>
+            <th>Price (₹)</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for product in products %}
+            <tr>
+              <td><img src="{{ url_for('static', filename='images/' ~ product.image) }}" width="80"></td>
+              <td>{{ product.name }}</td>
+              <td>{{ product.price }}</td>
+              <td><a href="/remove_from_cart/{{ product.cart_id }}" class="btn">Remove</a></td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <div class="total">
+        <strong>Total: ₹{{ total_price }}</strong>
+        <br><br>
+        <a href="/checkout" class="btn checkout-btn">Proceed to Checkout</a>
+      </div>
+
+    {% else %}
+      <p>Your cart is empty.</p>
+    {% endif %}
+
+  </div>
+
+</body>
+</html>

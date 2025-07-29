@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Artify | Empowering Women Artisans</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="logo-left">
+        <img src="{{ url_for('static', filename='images/logo.png') }}" class="nav-logo" alt="Artify Logo">
+      </div>
+      <form class="search-form" action="/search" method="GET">
+        <input type="text" name="query" placeholder="Search handcrafted products...">
+        <button type="submit"><i class="fa fa-search"></i></button>
+      </form>
+      <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/learn">Learn</a>
+        <a href="/shops">Shops</a>
+        <a href="/register">Register</a>
+        <a href="/login">Login</a>
+        <a href="/cart">🛒</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <h1>Empowering Hands, Creating Wonders</h1>
+    <p>Support rural women artisans by exploring and purchasing their unique handmade crafts.</p>
+    <div class="hero-buttons">
+      <a href="/register" class="btn">Become an Artisan</a>
+      <a href="/shops" class="btn outline">Explore Shops</a>
+    </div>
+  </section>
+
+  <!-- PRODUCTS SECTION -->
+ <!-- Featured Products -->
+<section class="section section-featured">
+  <h2 class="section-title"><i class="fa-solid fa-star"></i> Featured Products</h2>
+  <div class="product-grid">
+    {% if products %}
+      {% for product in products %}
+        <div class="product-card">
+          <img src="{{ url_for('static', filename='images/' ~ product.image) }}" alt="{{ product.name }}">
+          <h4>{{ product.name }}</h4>
+          <p class="price">₹{{ product.price }}</p>
+          <form action="/add_to_cart/{{ product.id }}" method="POST">
+            <a href="/register" class="btn-cart-link">Add to Cart</a>
+
+          </form>
+        </div>
+      {% endfor %}
+    {% else %}
+      <p class="no-data">No products available yet. Stay tuned!</p>
+    {% endif %}
+  </div>
+</section>
+
+<!-- Artisan Stories -->
+<section class="section section-blogs">
+  <h2 class="section-title"><i class="fa-solid fa-pen-nib"></i> Our Artisan Stories</h2>
+  {% if blogs %}
+    <div class="blog-grid">
+      {% for blog in blogs %}
+        <div class="blog-card">
+          <img src="{{ url_for('static', filename='images/' ~ blog.image) }}" alt="{{ blog.title }}">
+          <div class="blog-content">
+            <h4>{{ blog.title }}</h4>
+            <p class="blog-description">{{ blog.content[:100] }}...</p>
+            <a href="/blog/{{ blog.id }}" class="read-more">Read More</a>
+            
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p class="no-data">No blogs posted yet.</p>
+  {% endif %}
+</section>
+
+
+  <!-- INSPIRATION -->
+  <section class="section inspire">
+    <h2>✨ Empower • Create • Inspire</h2>
+    <p>Artify is a movement that uplifts rural women by turning their handmade skills into successful online ventures. Your support fuels their dreams.</p>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>&copy; 2025 Artify | Bettiah, Bihar</p>
+  </footer>
+
+</body>
+</html>

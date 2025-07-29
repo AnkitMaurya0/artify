@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ blog.title }} | Artify</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <div class="container">
+    <h1>{{ blog.title }}</h1>
+    <p><strong>By:</strong> {{ blog.name }} | <strong>Posted on:</strong> {{ blog.timestamp }}</p>
+
+    {% if blog.image %}
+      <img src="{{ url_for('static', filename='images/' ~ blog.image) }}" alt="{{ blog.title }}" style="max-width: 500px;">
+    {% endif %}
+
+    <div class="blog-content">
+      <p>{{ blog.content }}</p>
+    </div>
+    <br>
+    <a href="/learn" class="btn">← Back to Learn Page</a>
+  </div>
+</body>
+</html>

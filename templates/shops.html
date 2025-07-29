@@ -1,0 +1,28 @@
+<!-- templates/shops.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>All Shops | Artify</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+  <div class="page-header">
+    <h1>🛍️ Explore Our Creative Shops</h1>
+    <p>Discover unique handmade products from talented artisans.</p>
+  </div>
+
+  <div class="shop-grid">
+    {% for shop in shops %}
+      <a href="{{ url_for('view_shop_products', shop_id=shop.id) }}" class="shop-link">
+        <div class="shop-card">
+          <img src="{{ url_for('static', filename=shop.shop_logo) }}" alt="{{ shop.shop_name }}">
+          <div class="shop-name">{{ shop.shop_name }}</div>
+        </div>
+      </a>
+    {% endfor %}
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!-- templates/pay_upi.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Pay with UPI | Artify</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <style>
+    body { text-align: center; font-family: Arial; background: #f2f2f2; padding: 40px; }
+    .container { background: #fff; padding: 30px; border-radius: 10px; display: inline-block; }
+    img.qr { width: 240px; margin: 20px 0; }
+    .upi { font-size: 18px; margin-top: 10px; }
+    .btn { padding: 10px 20px; background: green; color: #fff; text-decoration: none; border-radius: 6px; }
+    .btn:hover { background: darkgreen; }
+  </style>
+</head>
+<body>
+  <div class="container">
+  <h2>📱 Scan & Pay via UPI</h2>
+  <img src="{{ url_for('static', filename='images/platform_qr.png') }}" alt="QR Code" class="qr">
+  <p><strong>Or UPI ID:</strong> artify@upi</p>
+  <p>After payment, enter your transaction ID below.</p>
+
+  <form action="{{ url_for('confirm_payment') }}" method="POST">
+  <input type="hidden" name="from" value="{{ from_page }}">
+  
+  <label><strong>Transaction ID:</strong></label>
+  <input type="text" name="transaction_id" required>
+
+  <button type="submit" class="btn">✅ I Have Paid</button>
+</form>
+
+</div>
+
+</body>
+</html>

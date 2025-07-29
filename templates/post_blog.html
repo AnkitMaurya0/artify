@@ -1,0 +1,28 @@
+<!-- templates/post_blog.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Post Blog | Artify</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+  <div class="blog-container">
+    <h1>✍️ Share Your Blog</h1>
+
+    <form action="/post_blog" method="POST" enctype="multipart/form-data">
+      <input type="text" name="title" placeholder="Blog Title" required>
+
+      <textarea name="content" rows="6" placeholder="Write your story here..." required></textarea>
+
+      <input type="file" name="image" accept="image/*">
+
+      <button type="submit">Post Blog</button>
+    </form>
+
+    <a href="/artisan_dashboard" class="back-link">← Back to Dashboard</a>
+  </div>
+
+</body>
+</html>

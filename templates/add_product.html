@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Product</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>Add New Product</h2>
+        <form method="POST" enctype="multipart/form-data">
+            <input type="text" name="name" placeholder="Product Name" required><br>
+            <input type="number" name="price" placeholder="Price" step="0.01" required><br>
+            <textarea name="description" placeholder="Description" rows="4" required></textarea><br>
+            <input type="file" name="image" required><br><br>
+            <button type="submit">Add Product</button>
+        </form>
+        <a href="{{ url_for('artisan_dashboard') }}">Back to Dashboard</a>
+    </div>
+</body>
+</html>
