@@ -1,5 +1,5 @@
 # Artify - Empowering Rural Women Artisans Through Digital Platform
-## Odoo x Charusat Hackathon 2025
+## Odoo x CGC MOHALI 2025
 
 ---
 
@@ -15,7 +15,7 @@ Ankit kumar
 
 ## 2. Problem Statement
 
-### Chosen Problem: Social Good & Civic Tech
+### Chosen Problem: Fintech & Financial Inclusion
 
 **Problem Analysis:**
 In rural India, women artisans possess exceptional traditional crafting skills but face significant barriers:
