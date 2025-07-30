@@ -65,7 +65,7 @@ Artify is a comprehensive digital ecosystem that empowers rural women artisans b
 - Flask Sessions for user authentication
 
 **Frontend:**
-- HTML5, CSS3, JavaScript
+- HTML5, CSS3, 
 - Custom CSS with artisan-friendly color schemes
 - Responsive Bootstrap components
 - Mobile-first design approach
@@ -76,7 +76,7 @@ Artify is a comprehensive digital ecosystem that empowers rural women artisans b
 
 **Deployment:**
 - Gunicorn WSGI Server
-- Heroku/Railway platform compatibility
+- Render
 
 ### Reasoning:
 - **Flask:** Rapid prototyping, minimal learning curve, perfect for MVP development
@@ -213,7 +213,7 @@ Village of Kumharpura with 50 potter families collectively joins Artify, creates
 ┌─────────────────────────────────────────┐
 │           PRESENTATION LAYER            │
 ├─────────────────────────────────────────┤
-│ HTML5 Templates + Custom CSS + JS      │
+│ HTML5 Templates + Custom CSS +       │
 │ Mobile-Responsive Bootstrap Components  │
 └─────────────────────────────────────────┘
                     ↓
