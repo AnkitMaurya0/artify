@@ -67,8 +67,7 @@ Artify is a comprehensive digital ecosystem that empowers rural women artisans b
 **Frontend:**
 - HTML5, CSS3, 
 - Custom CSS with artisan-friendly color schemes
-- Responsive Bootstrap components
-- Mobile-first design approach
+
 
 **Payment Integration:**
 - UPI Payment Gateway (Most popular in rural India)
