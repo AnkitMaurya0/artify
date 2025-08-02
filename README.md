@@ -1,6 +1,4 @@
 # Artify - Empowering Rural Women Artisans Through Digital Platform
-## Odoo x CGC MOHALI 2025
-
 ---
 
 ## 1. Team Name and Member Details
